@@ -2,6 +2,7 @@ import cv2 as cv
 import numpy as np
 from scipy import signal
 
+#Author: Adriana Galán Villamarín (AGV)
 
 def cornersPoints(I1g, I2g, window_size, tau=1e-2):
     # window_size is odd, all the pixels with offset in between [-w, w] are inside the window

@@ -35,7 +35,7 @@ def plot(imgs, **imshow_kwargs):
     plt.tight_layout()
 
 
-def raft_method(video):
+def raft_method(video):  # AGV modification
     frames, _, _ = read_video(str(video), output_format="TCHW")
 
     img1_batch = torch.stack([frames[50], frames[100]])
@@ -61,6 +61,7 @@ def raft_method(video):
     # If you can, run this example on a GPU, it will be a lot faster.
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
+    # AGV modification
     start = time.time_ns()
 
     # model = raft_large(weights=Raft_Large_Weights.DEFAULT, progress=False).to(device)
@@ -70,6 +71,7 @@ def raft_method(video):
 
     list_of_flows = model(img1_batch.to(device), img2_batch.to(device))
 
+    # AGV modification
     end = time.time_ns()
     cost_ns = end - start
     cost = cost_ns / 1e9 if cost_ns >= 0 else 0
@@ -106,6 +108,7 @@ def raft_method(video):
         cv.imshow("input", img)
 
         # Opens a new window and displays the output frame
-        cv.imshow("Dense Optical Flow from RAFT model", cv.cvtColor(flow_img.to("cpu").permute(1, 2, 0).numpy(), cv.COLOR_RGB2BGR))
+        cv.imshow("Dense Optical Flow from RAFT model",
+                  cv.cvtColor(flow_img.to("cpu").permute(1, 2, 0).numpy(), cv.COLOR_RGB2BGR))
 
-        return cost
+        return cost  # AGV modification

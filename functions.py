@@ -4,6 +4,9 @@ import Farneback as fb
 import optical_flow_RAFT_model as raft
 import cornerness as corn
 
+#Author: Adriana Galán Villamarín (AGV)
+
+
 # Execution Time Factor
 def exe_factor(cost1, cost2):
     time_factor = cost1 / cost2

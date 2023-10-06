@@ -3,7 +3,7 @@ import numpy as np
 import time
 
 
-def lucaskanadesv_method(video):
+def lucaskanadesv_method(video):  # AGV modification
     # Parameters for Shi-Tomasi corner detection. Similar to the popular Harris Corner Detector.
     feature_params = dict(maxCorners=300, qualityLevel=0.2, minDistance=2, blockSize=7)
     # Parameters for Lucas-Kanade optical flow
@@ -42,6 +42,7 @@ def lucaskanadesv_method(video):
         frame = cv.resize(frame, new_size)
         gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
+        # AGV modification
         start = time.time_ns()
 
         # Calculates sparse optical flow by Lucas-Kanade method
@@ -53,6 +54,7 @@ def lucaskanadesv_method(video):
         # Selects good feature points for next position
         good_new = next[status == 1]
 
+        # AGV modification
         end = time.time_ns()
         cost_ns = end - start
         cost = cost_ns / 1e9 if cost_ns >= 0 else 0
@@ -88,4 +90,4 @@ def lucaskanadesv_method(video):
     cap.release()
     cv.destroyAllWindows()
 
-    return cost
+    return cost  # AGV modification

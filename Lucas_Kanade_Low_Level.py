@@ -43,7 +43,7 @@ def optical_flow(I1g, I2g, window_size, tau=1e-2):
     return u, v
 
 
-def lkll_method(video):
+def lkll_method(video):  # AGV modification
     cap = cv.VideoCapture('traffic.mp4')
 
     if not cap.isOpened():
@@ -76,11 +76,13 @@ def lkll_method(video):
         cv.imshow("input", frame)
         gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
+        # AGV modification
         start = time.time_ns()
 
         # Calculates dense optical flow by Lucas-Kanade
         u, v = optical_flow(prev_gray, gray, window_size=15, tau=1e-2)
 
+        # AGV modification
         end = time.time_ns()
         cost_ns = end - start
         cost = cost_ns / 1e9 if cost_ns >= 0 else 0
@@ -107,4 +109,4 @@ def lkll_method(video):
         if cv.waitKey(1) & 0xFF == ord('q'):
             break
 
-    return cost
+    return cost  # AGV modification

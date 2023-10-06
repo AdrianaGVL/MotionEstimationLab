@@ -3,7 +3,7 @@ import numpy as np
 import time
 
 
-def fanerback_method(video):
+def fanerback_method(video):  # AGV modification
     cap = cv.VideoCapture(video)
     if not cap.isOpened():
         print("ERROR! Unable to open video or camera\n")
@@ -39,6 +39,7 @@ def fanerback_method(video):
 
         gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
+        # AGV modification
         # To obtain the computational cost we will save the time before and after the method
         start = time.time_ns()
 
@@ -46,6 +47,7 @@ def fanerback_method(video):
         # https://docs.opencv.org/3.0-beta/modules/video/doc/motion_analysis_and_object_tracking.html#calcopticalflowfarneback
         flow = cv.calcOpticalFlowFarneback(prev_gray, gray, None, 0.5, 3, 15, 3, 5, 1.2, 0)
 
+        # AGV modification
         end = time.time_ns()
         cost_ns = end - start
         cost = cost_ns / 1e9 if cost_ns >= 0 else 0
@@ -83,4 +85,4 @@ def fanerback_method(video):
     cap.release()
     cv.destroyAllWindows()
 
-    return cost
+    return cost  # AGV modification
